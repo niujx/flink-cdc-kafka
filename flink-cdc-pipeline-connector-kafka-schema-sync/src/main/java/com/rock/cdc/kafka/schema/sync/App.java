@@ -94,6 +94,7 @@ public class App {
                 log.info("receive schema change {}", schemaRequest.objectIdentifier);
 
                 if (!checkSchema(schemaRequest)) {
+                    log.warn("this table schema is illegality {}",schemaRequest);
                     return;
                 }
 
