@@ -120,7 +120,6 @@ public class MySqlTypeUtils {
      */
     private static DataType convertFromColumn(Column column) {
         String typeName = column.typeName();
-        System.out.println("aaaa");
         switch (typeName) {
             case BIT:
                 return column.length() == 1
