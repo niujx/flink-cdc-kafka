@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <Properties>
+        <Property name="LOF_PATTERN">%d{HH:mm:ss.SSS} [%t] %-5level %logger{35} - %msg%n</Property>
+        <Property name="LOG_DIR">data/logs/schema-sync.log</Property>
+        <Property name="LOG_FILE">sensors-sink</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{35} - %msg%n"/>
+        </Console>
+
+        <RollingFile name="InfoRollingFile"
+                     fileName="${LOG_DIR}/${LOG_FILE}.log"
+                     filePattern="${LOG_DIR}/${LOG_FILE}_%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>${LOF_PATTERN}</pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_DIE}" maxDepth="2">
+                    <IfFileName glob="*/${LOG_FILE}-*.log"/>
+                    <IfLastModified age="30d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <logger name="org.apache.kafka" level="info"/>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="InfoRollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,71 @@
+server:
+  port: 9999
+
+spring:
+  profiles:
+    active: production
+
+---
+spring:
+  profiles: production
+  cloud:
+    stream:
+      instance-count: 1
+      function:
+        definition: sinkProcess
+        contentType: application/json
+      bindings:
+        sinkProcess-in-0:
+          destination: catalog-meta-data
+          group: 20240205111
+          consumer:
+            concurrency: 1
+      poller:
+        fixed-delay: 5000
+      kafka:
+        bindings:
+          sinkProcess-in-0:
+            consumer:
+              startOffset: latest
+
+        binder:
+          brokers: 172.16.5.217:9092,172.16.5.218:9092,172.16.5.219:9092
+          required-acks: 1
+          autoCreateTopics: false
+catalog:
+    name: ods_test
+    store:
+      path: /Users/yanshi/work/github/flink-cdc-kafka/flink-cdc-pipeline-connector-kafka/src/test/resources
+    hadoop:
+      username': root
+
+
+---
+spring:
+  profiles: dev
+  cloud:
+    stream:
+      instance-count: 1
+      function:
+        definition: sinkProcess
+      bindings:
+        sinkProcess-in-0:
+          destination: catalog_meta_data
+          group: sensors-group-20220215
+          consumer:
+            concurrency: 7
+      poller:
+        fixed-delay: 5000
+      kafka:
+        bindings:
+          sinkProcess-in-0:
+            consumer:
+              startOffset: latest
+        binder:
+          brokers: 10.152.9.19:9092,10.152.9.20:9092,10.152.9.21:9092,10.152.9.22:9092,10.152.9.23:9092
+          required-acks: 1
+          autoCreateTopics: false
+  catalog:
+    name: ods_test
+    store:
+      path: /Users/yanshi/work/github/flink-cdc-kafka/flink-cdc-pipeline-connector-kafka/src/test/resources

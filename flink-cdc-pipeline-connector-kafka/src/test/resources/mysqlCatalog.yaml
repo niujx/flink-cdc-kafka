@@ -1,0 +1,5 @@
+type: jdbc
+username: root
+password: root
+base-url: jdbc:mysql://10.152.18.41:3306
+default-database: mysql_catalog

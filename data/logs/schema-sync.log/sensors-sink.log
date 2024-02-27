@@ -1,0 +1,356 @@
+17:01:16.667 [background-preinit] INFO  org.hibernate.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.0.Final
+17:01:16.753 [main] INFO  com.rock.cdc.kafka.schema.sync.App - Starting App using Java 1.8.0_281 on bogon with PID 36898 (/Users/yanshi/work/github/flink-cdc-kafka/flink-cdc-pipeline-connector-kafka-schema-sync/target/classes started by yanshi in /Users/yanshi/work/github/flink-cdc-kafka)
+17:01:16.762 [main] INFO  com.rock.cdc.kafka.schema.sync.App - The following profiles are active: production
+17:01:17.312 [main] WARN  org.springframework.boot.context.config.ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yaml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yaml] - 45:13]
+17:01:17.312 [main] WARN  org.springframework.boot.context.config.ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yaml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yaml] - 10:13]
+17:01:19.198 [main] INFO  org.springframework.integration.config.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+17:01:19.216 [main] INFO  org.springframework.integration.config.DefaultConfiguringBeanFactoryPostProcessor - No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+17:01:19.446 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:19.452 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'bindersHealthContributor' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration$BindersHealthContributor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:19.456 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'bindersHealthIndicatorListener' of type [org.springframework.cloud.stream.config.BindersHealthIndicatorAutoConfiguration$BindersHealthIndicatorListener] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:19.473 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:19.497 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:19.502 [main] INFO  org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+17:01:20.146 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9999 (http)
+17:01:20.168 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9999"]
+17:01:20.169 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+17:01:20.170 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.52]
+17:01:20.467 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+17:01:20.468 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3154 ms
+17:01:27.183 [main] INFO  org.springframework.cloud.stream.messaging.DirectWithAttributesChannel - Channel 'application.sinkProcess-in-0' has 1 subscriber(s).
+17:01:28.391 [main] INFO  org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+17:01:28.636 [main] INFO  org.springframework.integration.endpoint.EventDrivenConsumer - Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+17:01:28.637 [main] INFO  org.springframework.integration.channel.PublishSubscribeChannel - Channel 'application.errorChannel' has 1 subscriber(s).
+17:01:28.637 [main] INFO  org.springframework.integration.endpoint.EventDrivenConsumer - started bean '_org.springframework.integration.errorLogger'
+17:01:28.638 [main] INFO  org.springframework.integration.endpoint.EventDrivenConsumer - Adding {service-activator:app.error.serviceActivator} as a subscriber to the 'schema-sync.errors' channel
+17:01:28.639 [main] INFO  org.springframework.integration.channel.DirectChannel - Channel 'application.schema-sync.errors' has 1 subscriber(s).
+17:01:28.639 [main] INFO  org.springframework.integration.endpoint.EventDrivenConsumer - started bean 'app.error.serviceActivator'
+17:01:28.642 [main] INFO  org.springframework.cloud.stream.binder.DefaultBinderFactory - Creating binder: kafka
+17:01:29.430 [main] INFO  org.springframework.cloud.stream.binder.DefaultBinderFactory - Caching the binder: kafka
+17:01:29.431 [main] INFO  org.springframework.cloud.stream.binder.DefaultBinderFactory - Retrieving cached binder: kafka
+17:01:29.699 [main] INFO  org.apache.kafka.clients.admin.AdminClientConfig - AdminClientConfig values: 
+	bootstrap.servers = [10.195.40.142:9092, 10.195.40.117:9092, 10.195.40.119:9092, 10.195.40.68:9092, 10.195.40.80:9092]
+	client.dns.lookup = use_all_dns_ips
+	client.id = 
+	connections.max.idle.ms = 300000
+	default.api.timeout.ms = 60000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 127000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+17:01:29.963 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version: 2.7.1
+17:01:29.964 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 61dbce85d0d41457
+17:01:29.964 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1707210089953
+17:01:29.967 [main] INFO  org.springframework.cloud.stream.binder.kafka.provisioning.KafkaTopicProvisioner - Auto creation of topics is disabled.
+17:01:30.736 [kafka-admin-client-thread | adminclient-1] INFO  org.apache.kafka.common.utils.AppInfoParser - App info kafka.admin.client for adminclient-1 unregistered
+17:01:30.749 [kafka-admin-client-thread | adminclient-1] INFO  org.apache.kafka.clients.admin.internals.AdminMetadataManager - [AdminClient clientId=adminclient-1] Metadata update failed
+org.apache.kafka.common.errors.TimeoutException: Call(callName=fetchMetadata, deadlineMs=1707210119967, tries=1, nextAllowedTryMs=-9223372036854775709) timed out at 9223372036854775807 after 1 attempt(s)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Timed out waiting to send the call. Call: fetchMetadata
+17:01:30.776 [kafka-admin-client-thread | adminclient-1] INFO  org.apache.kafka.common.metrics.Metrics - Metrics scheduler closed
+17:01:30.778 [kafka-admin-client-thread | adminclient-1] INFO  org.apache.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+17:01:30.778 [kafka-admin-client-thread | adminclient-1] INFO  org.apache.kafka.common.metrics.Metrics - Metrics reporters closed
+17:01:30.801 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 100
+	auto.offset.reset = latest
+	bootstrap.servers = [10.195.40.142:9092, 10.195.40.117:9092, 10.195.40.119:9092, 10.195.40.68:9092, 10.195.40.80:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-20240205111-1
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = 20240205111
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	socket.connection.setup.timeout.max.ms = 127000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+17:01:30.898 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version: 2.7.1
+17:01:30.898 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 61dbce85d0d41457
+17:01:30.898 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1707210090898
+17:01:31.239 [main] INFO  org.apache.kafka.clients.Metadata - [Consumer clientId=consumer-20240205111-1, groupId=20240205111] Cluster ID: gI_tQQPqQQ-sWskEhiiviQ
+17:01:31.249 [main] INFO  org.apache.kafka.common.metrics.Metrics - Metrics scheduler closed
+17:01:31.249 [main] INFO  org.apache.kafka.common.metrics.Metrics - Closing reporter org.apache.kafka.common.metrics.JmxReporter
+17:01:31.250 [main] INFO  org.apache.kafka.common.metrics.Metrics - Metrics reporters closed
+17:01:31.253 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - App info kafka.consumer for consumer-20240205111-1 unregistered
+17:01:31.325 [main] INFO  org.springframework.cloud.stream.binder.BinderErrorChannel - Channel 'catalog-meta-data.20240205111.errors' has 1 subscriber(s).
+17:01:31.325 [main] INFO  org.springframework.cloud.stream.binder.BinderErrorChannel - Channel 'catalog-meta-data.20240205111.errors' has 0 subscriber(s).
+17:01:31.326 [main] INFO  org.springframework.cloud.stream.binder.BinderErrorChannel - Channel 'catalog-meta-data.20240205111.errors' has 1 subscriber(s).
+17:01:31.326 [main] INFO  org.springframework.cloud.stream.binder.BinderErrorChannel - Channel 'catalog-meta-data.20240205111.errors' has 2 subscriber(s).
+17:01:31.379 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 100
+	auto.offset.reset = latest
+	bootstrap.servers = [10.195.40.142:9092, 10.195.40.117:9092, 10.195.40.119:9092, 10.195.40.68:9092, 10.195.40.80:9092]
+	check.crcs = true
+	client.dns.lookup = use_all_dns_ips
+	client.id = consumer-20240205111-2
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = 20240205111
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = true
+	internal.throw.on.fetch.stable.offset.unsupported = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	socket.connection.setup.timeout.max.ms = 127000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.2
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+17:01:31.398 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version: 2.7.1
+17:01:31.398 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId: 61dbce85d0d41457
+17:01:31.398 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka startTimeMs: 1707210091398
+17:01:31.414 [main] INFO  org.apache.kafka.clients.consumer.KafkaConsumer - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Subscribed to topic(s): catalog-meta-data
+17:01:31.431 [main] INFO  org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter - started org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter@465e9090
+17:01:31.438 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9999"]
+17:01:31.475 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.Metadata - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Cluster ID: gI_tQQPqQQ-sWskEhiiviQ
+17:01:31.477 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Discovered group coordinator 10.195.40.142:9092 (id: 2147483646 rack: null)
+17:01:31.480 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] (Re-)joining group
+17:01:31.514 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 9999 (http) with context path ''
+17:01:31.549 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] (Re-)joining group
+17:01:31.588 [main] INFO  com.rock.cdc.kafka.schema.sync.App - Started App in 15.808 seconds (JVM running for 20.64)
+17:01:34.559 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Successfully joined group with generation Generation{generationId=5, memberId='consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677', protocol='range'}
+17:01:34.561 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Finished assignment for group at generation 5: {consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677=Assignment(partitions=[catalog-meta-data-0, catalog-meta-data-1, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-6])}
+17:01:34.589 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Successfully synced group in generation Generation{generationId=5, memberId='consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677', protocol='range'}
+17:01:34.590 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Notifying assignor about the new Assignment(partitions=[catalog-meta-data-0, catalog-meta-data-1, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-6])
+17:01:34.592 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Adding newly assigned partitions: catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1
+17:01:34.615 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-6 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.119:9092 (id: 3 rack: null)], epoch=absent}}
+17:01:34.615 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-4 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.142:9092 (id: 1 rack: null)], epoch=absent}}
+17:01:34.616 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-5 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.117:9092 (id: 2 rack: null)], epoch=absent}}
+17:01:34.616 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-2 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.68:9092 (id: 4 rack: null)], epoch=absent}}
+17:01:34.616 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-3 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.80:9092 (id: 5 rack: null)], epoch=absent}}
+17:01:34.616 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-0 to the committed offset FetchPosition{offset=43, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.117:9092 (id: 2 rack: null)], epoch=absent}}
+17:01:34.617 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-1 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.119:9092 (id: 3 rack: null)], epoch=absent}}
+17:01:34.618 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.springframework.cloud.stream.binder.kafka.KafkaMessageChannelBinder$2 - 20240205111: partitions assigned: [catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1]
+17:02:09.298 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  com.rock.cdc.kafka.schema.sync.App - receive schema change App.SyncObjectIdentifier(catalogName=ods_test, databaseName=ods_test, objectName=ods_cdc_db_gmcf_emc_t_emc_bill_info)
+17:02:09.790 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.hadoop.hive.conf.HiveConf - Found configuration file null
+17:02:10.544 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.flink.table.catalog.hive.HiveCatalog - Setting hive conf dir as /Users/yanshi/Downloads
+17:02:10.626 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] WARN  org.apache.hadoop.util.NativeCodeLoader - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17:02:11.014 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.flink.table.catalog.hive.HiveCatalog - Created HiveCatalog 'ods_test'
+17:02:11.164 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.hadoop.hive.metastore.HiveMetaStoreClient - Trying to connect to metastore with URI thrift://10.159.41.69:9083
+17:02:11.508 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.hadoop.hive.metastore.HiveMetaStoreClient - Opened a connection to metastore, current connections: 1
+17:02:11.581 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.hadoop.hive.metastore.HiveMetaStoreClient - Connected to metastore.
+17:02:11.581 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.hadoop.hive.metastore.RetryingMetaStoreClient - RetryingMetaStoreClient proxy=class org.apache.hadoop.hive.metastore.HiveMetaStoreClient ugi=root (auth:SIMPLE) retries=1 delay=1 lifetime=0
+17:02:12.105 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.flink.table.catalog.hive.HiveCatalog - Connected to Hive metastore
+17:02:24.717 [kafka-coordinator-heartbeat-thread | 20240205111] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Group coordinator 10.195.40.142:9092 (id: 2147483646 rack: null) is unavailable or invalid due to cause: session timed out without receiving a heartbeat response.isDisconnected: false. Rediscovery will be attempted.
+17:02:26.552 [kafka-coordinator-heartbeat-thread | 20240205111] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Discovered group coordinator 10.195.40.142:9092 (id: 2147483646 rack: null)
+17:02:34.585 [kafka-coordinator-heartbeat-thread | 20240205111] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Attempt to heartbeat with Generation{generationId=5, memberId='consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677', protocol='range'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, resetting generation
+17:02:34.780 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Failing OffsetCommit request since the consumer is not part of an active group
+17:02:34.781 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Attempt to heartbeat with stale Generation{generationId=5, memberId='consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677', protocol='range'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, ignoring the error
+17:02:34.782 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] ERROR org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer - Consumer exception
+java.lang.IllegalStateException: This error handler cannot process 'org.apache.kafka.clients.consumer.CommitFailedException's; no record information is available
+	at org.springframework.kafka.listener.SeekUtils.seekOrRecover(SeekUtils.java:200) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.SeekToCurrentErrorHandler.handle(SeekToCurrentErrorHandler.java:112) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.handleConsumerException(KafkaMessageListenerContainer.java:1602) [spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1210) [spring-kafka-2.7.6.jar:2.7.6]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_281]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_281]
+	at java.lang.Thread.run(Thread.java:748) [?:1.8.0_281]
+Caused by: org.apache.kafka.clients.consumer.CommitFailedException: Offset commit cannot be completed since the consumer is not part of an active group for auto partition assignment; it is likely that the consumer was kicked out of the group.
+	at org.apache.kafka.clients.consumer.internals.ConsumerCoordinator.sendOffsetCommitRequest(ConsumerCoordinator.java:1139) ~[kafka-clients-2.7.1.jar:?]
+	at org.apache.kafka.clients.consumer.internals.ConsumerCoordinator.commitOffsetsSync(ConsumerCoordinator.java:1004) ~[kafka-clients-2.7.1.jar:?]
+	at org.apache.kafka.clients.consumer.KafkaConsumer.commitSync(KafkaConsumer.java:1495) ~[kafka-clients-2.7.1.jar:?]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_281]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_281]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_281]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_281]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:344) ~[spring-aop-5.3.9.jar:5.3.9]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:208) ~[spring-aop-5.3.9.jar:5.3.9]
+	at com.sun.proxy.$Proxy128.commitSync(Unknown Source) ~[?:?]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.doCommitSync(KafkaMessageListenerContainer.java:2710) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.commitSync(KafkaMessageListenerContainer.java:2705) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.commitIfNecessary(KafkaMessageListenerContainer.java:2691) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.processCommits(KafkaMessageListenerContainer.java:2489) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.pollAndInvoke(KafkaMessageListenerContainer.java:1235) ~[spring-kafka-2.7.6.jar:2.7.6]
+	at org.springframework.kafka.listener.KafkaMessageListenerContainer$ListenerConsumer.run(KafkaMessageListenerContainer.java:1161) ~[spring-kafka-2.7.6.jar:2.7.6]
+	... 3 more
+17:02:34.788 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Giving away all assigned partitions as lost since generation has been reset,indicating that consumer is no longer part of the group
+17:02:34.788 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Lost previously assigned partitions catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1
+17:02:34.789 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.springframework.cloud.stream.binder.kafka.KafkaMessageChannelBinder$2 - 20240205111: partitions lost: [catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1]
+17:02:34.790 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.springframework.cloud.stream.binder.kafka.KafkaMessageChannelBinder$2 - 20240205111: partitions revoked: [catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1]
+17:02:34.791 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] (Re-)joining group
+17:02:34.792 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Attempt to heartbeat with stale Generation{generationId=5, memberId='consumer-20240205111-2-ddf88e15-86a8-4a69-8090-c1610bfc0677', protocol='range'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, ignoring the error
+17:02:34.805 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] (Re-)joining group
+17:02:37.812 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Successfully joined group with generation Generation{generationId=7, memberId='consumer-20240205111-2-5dd20858-a7e3-4428-b64a-8857dee53e22', protocol='range'}
+17:02:37.815 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Finished assignment for group at generation 7: {consumer-20240205111-2-5dd20858-a7e3-4428-b64a-8857dee53e22=Assignment(partitions=[catalog-meta-data-0, catalog-meta-data-1, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-6])}
+17:02:37.823 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Successfully synced group in generation Generation{generationId=7, memberId='consumer-20240205111-2-5dd20858-a7e3-4428-b64a-8857dee53e22', protocol='range'}
+17:02:37.824 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Notifying assignor about the new Assignment(partitions=[catalog-meta-data-0, catalog-meta-data-1, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-6])
+17:02:37.824 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Adding newly assigned partitions: catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1
+17:02:37.835 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-6 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.119:9092 (id: 3 rack: null)], epoch=absent}}
+17:02:37.835 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-4 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.142:9092 (id: 1 rack: null)], epoch=absent}}
+17:02:37.835 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-5 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.117:9092 (id: 2 rack: null)], epoch=absent}}
+17:02:37.836 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-2 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.68:9092 (id: 4 rack: null)], epoch=absent}}
+17:02:37.836 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-3 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.80:9092 (id: 5 rack: null)], epoch=absent}}
+17:02:37.836 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-0 to the committed offset FetchPosition{offset=43, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.117:9092 (id: 2 rack: null)], epoch=absent}}
+17:02:37.836 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - [Consumer clientId=consumer-20240205111-2, groupId=20240205111] Setting offset for partition catalog-meta-data-1 to the committed offset FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[10.195.40.119:9092 (id: 3 rack: null)], epoch=absent}}
+17:02:37.837 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  org.springframework.cloud.stream.binder.kafka.KafkaMessageChannelBinder$2 - 20240205111: partitions assigned: [catalog-meta-data-6, catalog-meta-data-4, catalog-meta-data-5, catalog-meta-data-2, catalog-meta-data-3, catalog-meta-data-0, catalog-meta-data-1]
+17:02:44.487 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  com.rock.cdc.kafka.schema.sync.App - receive schema change App.SyncObjectIdentifier(catalogName=ods_test, databaseName=ods_test, objectName=ods_cdc_db_gmcf_emc_t_emc_bill_info)
+17:02:44.604 [KafkaConsumerDestination{consumerDestinationName='catalog-meta-data', partitions=0, dlqName='null'}.container-0-C-1] INFO  com.rock.cdc.kafka.schema.sync.App - receive schema change App.SyncObjectIdentifier(catalogName=ods_test, databaseName=ods_test, objectName=ods_cdc_db_gmcf_emc_t_emc_bill_info)
