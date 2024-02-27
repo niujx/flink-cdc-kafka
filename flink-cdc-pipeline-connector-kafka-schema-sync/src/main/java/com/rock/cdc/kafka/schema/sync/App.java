@@ -1,5 +1,6 @@
 package com.rock.cdc.kafka.schema.sync;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.ververica.cdc.common.types.DataTypeRoot;
@@ -9,6 +10,7 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import lombok.Data;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.TableColumn;
@@ -28,7 +30,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nullable;
 import javax.annotation.PreDestroy;
 import java.io.Serializable;
 import java.util.Collections;
@@ -56,6 +57,7 @@ public class App {
     private ObjectMapper mapper = new ObjectMapper();
 
     private Map<String, TableSchemaSnapshot> tableSchemaSnapshotMap = Maps.newHashMap();
+    private List<String> invalidSchema = Lists.newArrayList();
 
 
     public static void main(String[] args) {
@@ -79,11 +81,21 @@ public class App {
     @Bean
     public Consumer<String> sinkProcess() {
         return value -> {
+            ChangeSchemaRequest schemaRequest;
+            try {
+                schemaRequest = mapper.readValue(value, ChangeSchemaRequest.class);
+            } catch (Exception e) {
+                log.error("cannot  deserialization message {} skip ", value);
+                return;
+            }
 
             try {
-                ChangeSchemaRequest schemaRequest = mapper.readValue(value, ChangeSchemaRequest.class);
                 SchemaChange schemaChange = schemaRequest.getSchemaChange();
                 log.info("receive schema change {}", schemaRequest.objectIdentifier);
+
+                if (!checkSchema(schemaRequest)) {
+                    return;
+                }
 
                 switch (schemaRequest.getOp()) {
                     case "CREATE":
@@ -106,7 +118,7 @@ public class App {
                 }
 
             } catch (Exception e) {
-                log.info("sync table schema error {}", ExceptionUtils.getStackTrace(e));
+                log.error("sync table schema error {}", ExceptionUtils.getStackTrace(e));
                 throw new RuntimeException(e);
             }
         };
@@ -160,7 +172,6 @@ public class App {
 
     @SneakyThrows
     protected void applyCreateTable(ChangeSchemaRequest request, SchemaChange createTableEvent) {
-
         Map<String, Column> columnMap = Maps.newHashMap();
         for (SyncColumn syncColumn : createTableEvent.getCreateColumns()) {
             Column column = Column.physical(syncColumn.getName(), dataType(syncColumn.getType()));
@@ -230,9 +241,24 @@ public class App {
                                 .collect(Collectors.toMap(Column::getName, c -> c));
                         return TableSchemaSnapshot.of(changeSchemaRequest.objectIdentifier.getObjectName(), primaryKeys, columns, contextResolvedTable.getTable().getOptions());
                     }).get();
-            tableSchemaSnapshotMap.put(changeSchemaRequest.objectIdentifier.getObjectName(),tableSchemaSnapshot);
+            tableSchemaSnapshotMap.put(changeSchemaRequest.objectIdentifier.getObjectName(), tableSchemaSnapshot);
         }
         return tableSchemaSnapshot;
+    }
+
+    private boolean checkSchema(ChangeSchemaRequest changeSchemaRequest) {
+        if (changeSchemaRequest.getOp().equals("CREATE")) {
+            if (changeSchemaRequest.schemaChange.getPrimaryKeys().isEmpty()) {
+                invalidSchema.add(changeSchemaRequest.objectIdentifier.getObjectName());
+                return false;
+            }
+        }
+
+        if (invalidSchema.contains(changeSchemaRequest.objectIdentifier.getObjectName())) {
+            return false;
+        }
+
+        return true;
     }
 
 
