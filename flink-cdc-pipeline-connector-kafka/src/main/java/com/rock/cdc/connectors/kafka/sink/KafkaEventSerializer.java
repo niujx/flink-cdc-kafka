@@ -2,10 +2,15 @@ package com.rock.cdc.connectors.kafka.sink;
 
 
 import com.google.common.collect.Maps;
+import com.rock.cdc.connectors.common.event.DataChangeWithSchemaEvent;
 import com.ververica.cdc.common.data.RecordData;
 import com.ververica.cdc.common.event.*;
 import com.ververica.cdc.common.schema.Column;
+import com.ververica.cdc.common.schema.PhysicalColumn;
 import com.ververica.cdc.common.schema.Schema;
+import com.ververica.cdc.common.types.DataType;
+import com.ververica.cdc.common.types.DataTypeRoot;
+import com.ververica.cdc.common.types.RowType;
 import com.ververica.cdc.common.utils.Preconditions;
 import com.ververica.cdc.common.utils.SchemaUtils;
 import lombok.SneakyThrows;
@@ -39,7 +44,7 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
     }
 
     @Override
-    public void open(SerializationSchema.InitializationContext context, KafkaSinkContext sinkContext) throws Exception {
+    public void open(SerializationSchema.InitializationContext context, KafkaSinkContext sinkContext) {
         tableInfoMap = Maps.newHashMap();
     }
 
@@ -61,13 +66,7 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
                 }
                 newSchema = SchemaUtils.applySchemaChangeEvent(tableInfo.schema, (SchemaChangeEvent) event);
             }
-            TableInfo tableInfo = new TableInfo();
-            tableInfo.schema = newSchema;
-            tableInfo.fieldGetters = new RecordData.FieldGetter[newSchema.getColumnCount()];
-            for (int i = 0; i < newSchema.getColumnCount(); i++) {
-                tableInfo.fieldGetters[i] =
-                        KafkaUtils.createFieldGetter(newSchema.getColumns().get(i).getType(), i, zoneId);
-            }
+            TableInfo tableInfo = tableInfo(newSchema);
             tableInfoMap.put(tableId, tableInfo);
         } else if (event instanceof DataChangeEvent) {
             return applyChangeDataEvent((DataChangeEvent) event);
@@ -131,6 +130,34 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
 
     }
 
+    private TableInfo tableInfo(Schema schema) {
+        TableInfo tableInfo = new TableInfo();
+        tableInfo.schema = schema;
+        tableInfo.fieldGetters = new RecordData.FieldGetter[schema.getColumnCount()];
+        for (int i = 0; i < schema.getColumnCount(); i++) {
+            Column column = schema.getColumns().get(i);
+            if (column.getType().getTypeRoot() == DataTypeRoot.ROW) {
+                RowType rowType = ((RowType) column.getType());
+                List<DataType> dataTypes = rowType.getChildren();
+                List<String> fieldNames = rowType.getFieldNames();
+                Schema.Builder builder = Schema.newBuilder();
+                for (int j = 0; j < dataTypes.size(); j++) {
+                    builder.physicalColumn(fieldNames.get(j), dataTypes.get(j));
+                }
+                TableInfo childTableInfo = tableInfo(builder.build());
+                if (tableInfo.childes == null) {
+                    tableInfo.childes = Maps.newHashMap();
+                }
+                tableInfo.childes.put(column.getName(), childTableInfo);
+
+            }
+            tableInfo.fieldGetters[i] =
+                    KafkaUtils.createFieldGetter(schema.getColumns().get(i).getType(), i, zoneId);
+        }
+        return tableInfo;
+    }
+
+
     private String topic(KafkaDebeziumRecord.Source source) {
         return (prefix + "-" + source.getDatabase() + "-" + source.getTable()).replace("_", "-");
     }
@@ -158,7 +185,13 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
 //                "Column size does not match the data size");
         Map<String, Object> record = new HashMap<>(recordData.getArity() + 1);
         for (int i = 0; i < recordData.getArity(); i++) {
-            record.put(columns.get(i).getName(), tableInfo.fieldGetters[i].getFieldOrNull(recordData));
+            Object fieldOrNull = tableInfo.fieldGetters[i].getFieldOrNull(recordData);
+            if (fieldOrNull instanceof RecordData) {
+                Column column = tableInfo.schema.getColumns().get(i);
+                TableInfo  childTableInfo = tableInfo.childes.get(column.getName());
+                fieldOrNull =  serializerRecord((RecordData) fieldOrNull,childTableInfo);
+            }
+            record.put(columns.get(i).getName(), fieldOrNull);
         }
         return record;
     }
@@ -166,6 +199,7 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
 
     private static class TableInfo {
         Schema schema;
+        Map<String, TableInfo> childes;
         RecordData.FieldGetter[] fieldGetters;
     }
 

@@ -27,6 +27,9 @@ spring:
           sinkProcess-in-0:
             consumer:
               startOffset: latest
+              configuration:
+                max.poll.records: 250
+                max.poll.interval.ms: 300000
 
         binder:
           brokers: 172.16.5.217:9092,172.16.5.218:9092,172.16.5.219:9092

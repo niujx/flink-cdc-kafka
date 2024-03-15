@@ -3,7 +3,7 @@
 
     <Properties>
         <Property name="LOF_PATTERN">%d{HH:mm:ss.SSS} [%t] %-5level %logger{35} - %msg%n</Property>
-        <Property name="LOG_DIR">data/logs/schema-sync.log</Property>
+        <Property name="LOG_DIR">/data/logs/schema-sync.log</Property>
         <Property name="LOG_FILE">sensors-sink</Property>
     </Properties>
 

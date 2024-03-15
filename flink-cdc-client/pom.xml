@@ -18,6 +18,12 @@
             <groupId>com.rock.stream</groupId>
             <artifactId>flink-cdc-pipeline-connector-kafka</artifactId>
             <version>1.0-1.18</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>
+                    <groupId>com.ververica</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -68,10 +74,10 @@
             <artifactId>flink-connector-mongodb-cdc</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.ververica</groupId>
-            <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ververica</groupId>-->
+<!--            <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.ververica</groupId>
@@ -102,6 +108,10 @@
                     <artifactId>slf4j-log4j12</artifactId>
                     <groupId>org.slf4j</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>avro</artifactId>
+                    <groupId>org.apache.avro</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -120,6 +130,12 @@
         <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-metastore</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>avro</artifactId>
+                    <groupId>org.apache.avro</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -127,11 +143,6 @@
             <artifactId>hive-exec</artifactId>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>8.0.33</version>-->
-<!--        </dependency>-->
 
         <!-- 工具类-->
         <dependency>

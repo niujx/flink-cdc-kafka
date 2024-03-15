@@ -1,6 +1,6 @@
 package com.rock.cdc.connectors.mongodb.factory;
 
-import com.rock.cdc.connectors.mongodb.source.MongoKafkaDataSource;
+import com.rock.cdc.connectors.mongodb.source.MongodbDataSource;
 import com.ververica.cdc.common.annotation.Internal;
 import com.ververica.cdc.common.configuration.ConfigOption;
 import com.ververica.cdc.common.configuration.Configuration;
@@ -25,15 +25,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import static com.rock.cdc.connectors.mongodb.source.MongoKafkaSourceOptions.*;
+import static com.rock.cdc.connectors.mongodb.source.MongodbSourceOptions.*;
 import static org.apache.flink.util.Preconditions.checkNotNull;
 
 
 @Slf4j
 @Internal
-public class MongoKafkaDataSourceFactory implements DataSourceFactory {
+public class MongodbDataSourceFactory implements DataSourceFactory {
 
-    public static final String IDENTIFIER = "mongo-kafka";
+    public static final String IDENTIFIER = "mongodb";
 
     @Override
     public DataSource createDataSource(Context context) {
@@ -103,7 +103,7 @@ public class MongoKafkaDataSourceFactory implements DataSourceFactory {
                     "Cannot find any table by the option 'tables' = " + collection);
         }
         configFactory.collectionList(capturedTables);
-        return new MongoKafkaDataSource(configFactory,serverTimeZone);
+        return new MongodbDataSource(configFactory,serverTimeZone);
     }
 
     @Override
@@ -159,7 +159,7 @@ public class MongoKafkaDataSourceFactory implements DataSourceFactory {
 
     private TableId toTableId(String collectionName) {
         return TableId.tableId(collectionName.substring(0, collectionName.indexOf(".")),
-                collectionName.substring(collectionName.indexOf("."), collectionName.length()));
+                collectionName.substring(collectionName.indexOf(".")+1, collectionName.length()));
     }
 
     private static StartupOptions getStartupOptions(Configuration config) {

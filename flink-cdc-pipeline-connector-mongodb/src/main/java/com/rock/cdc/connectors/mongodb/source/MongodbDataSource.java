@@ -1,5 +1,6 @@
 package com.rock.cdc.connectors.mongodb.source;
 
+import com.rock.cdc.connectors.mongodb.utils.MongodbValueUtils;
 import com.ververica.cdc.common.event.Event;
 import com.ververica.cdc.common.source.DataSource;
 import com.ververica.cdc.common.source.EventSourceProvider;
@@ -8,27 +9,28 @@ import com.ververica.cdc.common.source.MetadataAccessor;
 import com.ververica.cdc.connectors.mongodb.source.MongoDBSource;
 import com.ververica.cdc.connectors.mongodb.source.MongoDBSourceBuilder;
 import com.ververica.cdc.connectors.mongodb.source.config.MongoDBSourceConfigFactory;
-import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
 import java.time.ZoneId;
+import java.util.TimeZone;
 
-public class MongoKafkaDataSource implements DataSource {
+public class MongodbDataSource implements DataSource {
 
     private final MongoDBSourceConfigFactory configFactory;
     private final ZoneId zoneId;
 
-    public MongoKafkaDataSource(MongoDBSourceConfigFactory configFactory, ZoneId zoneId) {
+    public MongodbDataSource(MongoDBSourceConfigFactory configFactory, ZoneId zoneId) {
         this.configFactory = configFactory;
         this.zoneId = zoneId;
     }
 
     @Override
     public EventSourceProvider getEventSourceProvider() {
-       // DebeziumDeserializationSchema<Event> deserializer = new RowDataDebeziumDeserializationSchema(zoneId);
+        MongodbValueUtils mongodbValueUtils = new MongodbValueUtils(TimeZone.getTimeZone(zoneId));
+        MongodbEventDeserializer deserializationSchema = new MongodbEventDeserializer(mongodbValueUtils);
         MongoDBSource<Event> mongoDBSource = createSource()
-                .deserializer(null)
+                .deserializer(deserializationSchema)
                 .build();
         return FlinkSourceProvider.of(mongoDBSource);
     }

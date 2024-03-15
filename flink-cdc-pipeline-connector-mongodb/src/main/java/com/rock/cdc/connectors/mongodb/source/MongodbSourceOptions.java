@@ -8,7 +8,7 @@ import com.ververica.cdc.common.configuration.ConfigOptions;
 import static com.ververica.cdc.connectors.mongodb.internal.MongoDBEnvelope.MONGODB_SCHEME;
 
 @PublicEvolving
-public class MongoKafkaSourceOptions {
+public class MongodbSourceOptions {
 
     public static final ConfigOption<String> SCHEME =
             ConfigOptions.key("scheme")
