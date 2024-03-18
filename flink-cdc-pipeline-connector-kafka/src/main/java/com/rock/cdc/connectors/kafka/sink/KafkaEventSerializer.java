@@ -2,11 +2,9 @@ package com.rock.cdc.connectors.kafka.sink;
 
 
 import com.google.common.collect.Maps;
-import com.rock.cdc.connectors.common.event.DataChangeWithSchemaEvent;
 import com.ververica.cdc.common.data.RecordData;
 import com.ververica.cdc.common.event.*;
 import com.ververica.cdc.common.schema.Column;
-import com.ververica.cdc.common.schema.PhysicalColumn;
 import com.ververica.cdc.common.schema.Schema;
 import com.ververica.cdc.common.types.DataType;
 import com.ververica.cdc.common.types.DataTypeRoot;

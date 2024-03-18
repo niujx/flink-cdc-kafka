@@ -63,6 +63,15 @@
         </dependency>
 
         <!-- cdc -->
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-connector-mongodb-cdc</artifactId>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>com.ververica</groupId>-->
+<!--            <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>com.ververica</groupId>
@@ -155,8 +164,42 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.ververica</groupId>
+                    <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>
+                </dependency>
+            </dependencies>
+            <build>
+                <finalName>flink-cdc-client-mysql</finalName>
+            </build>
+        </profile>
+
+        <profile>
+            <id>mongodb</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.rock.stream</groupId>
+                    <artifactId>flink-cdc-pipeline-connector-mongodb</artifactId>
+                    <version>1.0-1.18</version>
+                </dependency>
+            </dependencies>
+            <build>
+                <finalName>flink-cdc-client-mongodb</finalName>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
-        <finalName>flink-cdc-client</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -15,7 +15,6 @@
         <module>flink-cdc-pipeline-connector-mongodb</module>
         <module>flink-cdc-pipeline-connector-kafka</module>
         <module>flink-cdc-pipeline-connector-tidb</module>
-        <module>flink-cdc-pipeline-connector-common</module>
         <module>flink-cdc-pipeline-connector-kafka-schema-sync</module>
         <module>flink-cdc-pipeline-connector-maven-test</module>
     </modules>
@@ -91,6 +90,12 @@
 
             <dependency>
                 <groupId>com.ververica</groupId>
+                <artifactId>flink-connector-mysql-cdc</artifactId>
+                <version>${flink.cdc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ververica</groupId>
                 <artifactId>flink-cdc-pipeline-connector-mysql</artifactId>
                 <version>${flink.cdc.version}</version>
             </dependency>
@@ -110,6 +115,12 @@
             <dependency>
                 <groupId>com.ververica</groupId>
                 <artifactId>flink-cdc-common</artifactId>
+                <version>${flink.cdc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.ververica</groupId>
+                <artifactId>flink-cdc-runtime</artifactId>
                 <version>${flink.cdc.version}</version>
             </dependency>
 
