@@ -70,6 +70,7 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
         BsonDocument fullDocument =
                 extractBsonDocument(value, valueSchema, MongoDBEnvelope.FULL_DOCUMENT_FIELD);
 
+        //6.0以下不支持 获取before的数据
         BsonDocument fullDocumentBeforeChange =
                 extractBsonDocument(
                         value, valueSchema, MongoDBEnvelope.FULL_DOCUMENT_BEFORE_CHANGE_FIELD);
@@ -205,6 +206,7 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
         if (dbzObj.isObjectId()) {
             stringValue = dbzObj.asObjectId().getValue().toString();
         } else if (dbzObj.isArray()) {
+            //flink cdc pipline 现在不支持array对象处理，只能转换成字符串
             List<Object> arrays = Lists.newArrayList();
             for (BsonValue bsonValue : dbzObj.asArray()) {
                 Object value;
