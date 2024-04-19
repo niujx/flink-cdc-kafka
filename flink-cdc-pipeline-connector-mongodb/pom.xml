@@ -27,12 +27,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.rock.stream</groupId>
-            <artifactId>flink-cdc-pipeline-connector-common</artifactId>
-            <version>1.0-1.18</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-cdc-common</artifactId>
         </dependency>
