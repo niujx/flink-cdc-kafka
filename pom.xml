@@ -15,7 +15,6 @@
         <module>flink-cdc-pipeline-connector-mongodb</module>
         <module>flink-cdc-pipeline-connector-kafka</module>
         <module>flink-cdc-pipeline-connector-tidb</module>
-        <module>flink-cdc-pipeline-connector-mysql</module>
         <module>flink-cdc-pipeline-connector-kafka-schema-sync</module>
         <module>flink-cdc-pipeline-connector-maven-test</module>
     </modules>
