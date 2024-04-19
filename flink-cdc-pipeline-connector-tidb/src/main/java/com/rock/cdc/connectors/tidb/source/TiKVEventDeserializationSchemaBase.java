@@ -10,8 +10,6 @@ import com.ververica.cdc.common.types.RowType;
 import com.ververica.cdc.connectors.tidb.table.TiKVDeserializationRuntimeConverter;
 import com.ververica.cdc.debezium.utils.TemporalConversions;
 import com.ververica.cdc.runtime.typeutils.BinaryRecordDataGenerator;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.tikv.common.meta.TiColumnInfo;
 import org.tikv.common.meta.TiTableInfo;
 
@@ -19,8 +17,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.List;
 
 import com.ververica.cdc.common.data.TimestampData;
@@ -476,7 +472,4 @@ public class TiKVEventDeserializationSchemaBase implements Serializable {
         };
     }
 
-    public static void main(String[] args) throws ParseException {
-        System.out.println(DateUtils.parseDate("2023-04-19","yyyy-MM-dd").getTime());
-    }
 }
