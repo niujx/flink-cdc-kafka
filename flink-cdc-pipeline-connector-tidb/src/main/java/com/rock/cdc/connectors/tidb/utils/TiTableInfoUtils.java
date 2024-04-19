@@ -2,16 +2,10 @@ package com.rock.cdc.connectors.tidb.utils;
 
 import com.ververica.cdc.common.event.TableId;
 import org.apache.flink.util.FlinkRuntimeException;
-import org.apache.flink.util.Preconditions;
 import org.tikv.common.TiConfiguration;
 import org.tikv.common.TiSession;
 import org.tikv.common.meta.TiDBInfo;
 import org.tikv.common.meta.TiTableInfo;
-import org.tikv.shade.com.google.common.collect.Lists;
-
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class TiTableInfoUtils {
 

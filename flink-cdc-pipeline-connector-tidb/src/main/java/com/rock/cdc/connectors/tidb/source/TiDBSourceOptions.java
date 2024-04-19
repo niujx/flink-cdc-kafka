@@ -56,4 +56,11 @@ public class TiDBSourceOptions {
                     .noDefaultValue()
                     .withDescription("TiKV GRPC batch scan concurrency");
 
+    public static final ConfigOption<Long> SCAN_STARTUP_TIMESTAMP_MILLIS =
+            ConfigOptions.key("scan.startup.timestamp-millis")
+                    .longType()
+                    .noDefaultValue()
+                    .withDescription(
+                            "Optional timestamp used in case of \"timestamp\" startup mode");
+
 }

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static com.rock.cdc.connectors.tidb.source.TiDBSourceOptions.*;
+import static org.apache.flink.util.Preconditions.checkNotNull;
 
 public class TiDBDataSourceFactory implements DataSourceFactory {
 
@@ -73,11 +74,13 @@ public class TiDBDataSourceFactory implements DataSourceFactory {
         options.add(TIKV_GRPC_SCAN_TIMEOUT);
         options.add(TIKV_BATCH_GET_CONCURRENCY);
         options.add(TIKV_BATCH_SCAN_CONCURRENCY);
+        options.add(SCAN_STARTUP_TIMESTAMP_MILLIS);
         return options;
     }
 
     private static final String SCAN_STARTUP_MODE_VALUE_INITIAL = "initial";
     private static final String SCAN_STARTUP_MODE_VALUE_LATEST = "latest-offset";
+    private static final String SCAN_STARTUP_MODE_VALUE_TIMESTAMP = "timestamp";
 
     private static StartupOptions getStartupOptions(Configuration config) {
         String scanStartupMode = config.get(SCAN_STARTUP_MODE);
@@ -87,6 +90,13 @@ public class TiDBDataSourceFactory implements DataSourceFactory {
                 return StartupOptions.initial();
             case SCAN_STARTUP_MODE_VALUE_LATEST:
                 return StartupOptions.latest();
+            case SCAN_STARTUP_MODE_VALUE_TIMESTAMP:
+                return StartupOptions.timestamp(
+                        checkNotNull(
+                                config.get(SCAN_STARTUP_TIMESTAMP_MILLIS),
+                                String.format(
+                                        "To use timestamp startup mode, the startup timestamp millis '%s' must be set.",
+                                        SCAN_STARTUP_TIMESTAMP_MILLIS.key())));
             default:
                 throw new ValidationException(String.format("Invalid value for option '%s'. Supported values are [%s,%s],but was: %s",
                         SCAN_STARTUP_MODE.key(),

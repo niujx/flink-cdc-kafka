@@ -48,8 +48,7 @@ public class SimpleTiKVChangeEventDeserializationSchema extends TiKVEventDeseria
 
         RowKey rawKey = RowKey.decode(row.getKey().toByteArray());
         long handle = rawKey.getHandle();
-        Object[] oldValues = decodeObjects(row.getOldValue().toByteArray(),handle,tableInfo);
-        Object[] currentValues = decodeObjects(row.getValue().toByteArray(),handle,tableInfo);
+
 
         ChangeEvent changeEvent = null;
         switch (row.getOpType()) {
@@ -57,9 +56,11 @@ public class SimpleTiKVChangeEventDeserializationSchema extends TiKVEventDeseria
                 RecordData rowDataUpdateBefore = null;
                 RecordData rowDataUpdateAfter;
                 if (row.getOldValue() != null && !row.getOldValue().isEmpty()) {
+                    Object[]  oldValues = decodeObjects(row.getOldValue().toByteArray(),handle,tableInfo);
                     rowDataUpdateBefore =
                             (RecordData) physicalConverter.convert(oldValues, tableInfo, null);
                 }
+                Object[] currentValues = decodeObjects(row.getValue().toByteArray(),handle,tableInfo);
                 rowDataUpdateAfter =
                         (RecordData) physicalConverter.convert(currentValues, tableInfo, null);
 
@@ -71,6 +72,7 @@ public class SimpleTiKVChangeEventDeserializationSchema extends TiKVEventDeseria
                 }
                 break;
             case DELETE:
+                Object[]  oldValues = decodeObjects(row.getOldValue().toByteArray(),handle,tableInfo);
                 rowDataUpdateBefore =
                         (RecordData) physicalConverter.convert(oldValues, tableInfo, null);
                 changeEvent = DataChangeEvent.deleteEvent(tableId,rowDataUpdateBefore);
