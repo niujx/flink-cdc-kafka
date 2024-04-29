@@ -205,6 +205,8 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
         String stringValue;
         if (dbzObj.isObjectId()) {
             stringValue = dbzObj.asObjectId().getValue().toString();
+        }else if(dbzObj.isDocument()){
+            stringValue =  new ObjectMapper().writeValueAsString(dbzObj.asDocument());
         } else if (dbzObj.isArray()) {
             //flink cdc pipline 现在不支持array对象处理，只能转换成字符串
             List<Object> arrays = Lists.newArrayList();

@@ -44,8 +44,9 @@ public class MongodbTypeUtils {
             case ARRAY:
                 return DataTypes.STRING();
             case DOCUMENT:
-                return convertToRow(bsonValue.asDocument());
-            //    return convertToArray(bsonValue.asArray());
+                return DataTypes.STRING();
+                // 如果想改回ROW类型，更改下DataType
+             //   return convertToRow(bsonValue.asDocument());
             case BINARY:
                 return DataTypes.BINARY(Integer.MAX_VALUE);
             case BOOLEAN:
