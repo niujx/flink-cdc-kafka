@@ -92,7 +92,7 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
             }
         } else {
             after = extractAfterDataRecord(fullDocument, schema);
-            changeEvents.add(DataChangeEvent.updateEvent(tableId, after, after, Collections.emptyMap()));
+            changeEvents.add(DataChangeEvent.updateEvent(tableId, null, after, Collections.emptyMap()));
         }
 
         return changeEvents;
