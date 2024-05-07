@@ -12,7 +12,17 @@ public class TiDBSchemaUtils {
         for (TiColumnInfo column : tiTableInfo.getColumns()) {
             builder.physicalColumn(column.getName(),TiDBTypesUtils.toDateType(column));
         }
-        builder.primaryKey(tiTableInfo.getPKIsHandleColumn().getName());
+
+        if(tiTableInfo.isPkHandle()) {
+            builder.primaryKey(tiTableInfo.getPKIsHandleColumn().getName());
+        }else{
+            for (TiColumnInfo column : tiTableInfo.getColumns()) {
+                if(column.isPrimaryKey()){
+                    builder.primaryKey(column.getName());
+                    break;
+                }
+            }
+        }
         return builder.build();
     }
 
