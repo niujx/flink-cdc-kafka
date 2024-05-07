@@ -1,31 +1,30 @@
 package com.rock.cdc.connectors.tidb.source;
 
 import com.ververica.cdc.common.schema.Schema;
+import org.apache.commons.compress.utils.Lists;
 import org.tikv.common.meta.TiColumnInfo;
 import org.tikv.common.meta.TiTableInfo;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TiDBSchemaUtils {
 
 
-    public static Schema createSchema(TiTableInfo tiTableInfo){
+    public static Schema createSchema(TiTableInfo tiTableInfo) {
         Schema.Builder builder = Schema.newBuilder();
+        List<String> primaryKeys = Lists.newArrayList();
         for (TiColumnInfo column : tiTableInfo.getColumns()) {
-            builder.physicalColumn(column.getName(),TiDBTypesUtils.toDateType(column));
-        }
-
-        if(tiTableInfo.isPkHandle()) {
-            builder.primaryKey(tiTableInfo.getPKIsHandleColumn().getName());
-        }else{
-            for (TiColumnInfo column : tiTableInfo.getColumns()) {
-                if(column.isPrimaryKey()){
-                    builder.primaryKey(column.getName());
-                    break;
-                }
+            builder.physicalColumn(column.getName(), TiDBTypesUtils.toDateType(column));
+            if(column.isPrimaryKey()){
+                primaryKeys.add(column.getName());
             }
         }
+
+        builder.primaryKey(primaryKeys);
+
         return builder.build();
     }
-
 
 
 }
