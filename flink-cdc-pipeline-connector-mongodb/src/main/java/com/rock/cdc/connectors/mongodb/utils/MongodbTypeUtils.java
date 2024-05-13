@@ -4,6 +4,7 @@ import com.ververica.cdc.common.schema.Schema;
 import com.ververica.cdc.common.types.DataField;
 import com.ververica.cdc.common.types.DataType;
 import com.ververica.cdc.common.types.DataTypes;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.compress.utils.Lists;
 import org.bson.BsonArray;
 import org.bson.BsonDocument;
@@ -12,7 +13,7 @@ import org.bson.BsonValue;
 
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 public class MongodbTypeUtils {
 
     private MongodbTypeUtils() {
@@ -24,7 +25,11 @@ public class MongodbTypeUtils {
             if(column.getValue().isArray() && column.getValue().asArray().isEmpty()){
                 continue;
             }
-            builder.physicalColumn(column.getKey(),createDataType(column.getValue()));
+            try {
+                builder.physicalColumn(column.getKey(), createDataType(column.getValue()));
+            }catch (Exception e){
+              //  log.warn("createDataType  error Unsupported type: {}" , column.getValue().getBsonType());
+            }
         }
         builder.comment("mongodb");
         builder.primaryKey("_id");
@@ -60,7 +65,6 @@ public class MongodbTypeUtils {
                 return DataTypes.BIGINT();
             case DECIMAL128:
                 return DataTypes.DECIMAL(18, 6);
-            case DB_POINTER:
             default:
                 throw new UnsupportedOperationException("Unsupported type: " + type);
         }

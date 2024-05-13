@@ -12,6 +12,7 @@ import com.ververica.cdc.common.types.RowType;
 import com.ververica.cdc.common.utils.Preconditions;
 import com.ververica.cdc.common.utils.SchemaUtils;
 import lombok.SneakyThrows;
+import org.apache.commons.lang.StringUtils;
 import org.apache.flink.api.common.serialization.SerializationSchema;
 import org.apache.flink.connector.kafka.sink.KafkaRecordSerializationSchema;
 import org.apache.htrace.shaded.fasterxml.jackson.core.JsonProcessingException;
@@ -72,14 +73,23 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
         return null;
     }
 
+    @SneakyThrows
     private ProducerRecord<byte[], byte[]> applyChangeDataEvent(DataChangeEvent event) throws JsonProcessingException {
         TableId tableId = event.tableId();
-        TableInfo tableInfo = tableInfoMap.get(tableId);
+        TableInfo tableInfo;
+        Map<String, String> meta = event.meta();
+        if(meta!=null && StringUtils.equals(meta.get("source"),"mongodb")){
+            Schema schema = new ObjectMapper().readValue(meta.get("schema"),Schema.class);
+            tableInfo = tableInfo(schema);
+        }else {
+            tableInfo = tableInfoMap.get(tableId);
+        }
         Preconditions.checkNotNull(tableInfo, event.tableId() + " is not existed");
         Map<String, Object> before = null;
         Map<String, Object> after = null;
         Map<String, Object> current;
         String op;
+
 
         switch (event.op()) {
             case INSERT:

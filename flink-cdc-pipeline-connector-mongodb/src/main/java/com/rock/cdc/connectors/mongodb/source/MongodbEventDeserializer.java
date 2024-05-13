@@ -1,6 +1,7 @@
 package com.rock.cdc.connectors.mongodb.source;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.mongodb.client.model.changestream.OperationType;
 import com.rock.cdc.connectors.mongodb.utils.MongodbTypeUtils;
 import com.rock.cdc.connectors.mongodb.utils.MongodbValueUtils;
@@ -38,7 +39,8 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
             new ConcurrentHashMap<>();
 
     private MongodbValueUtils mongodbValueUtils;
-
+    //用来欺骗schema registered  只发送一次
+    private Map<TableId,Schema> schemaMap = Maps.newConcurrentMap();
 
     public MongodbEventDeserializer(MongodbValueUtils mongodbValueUtils) {
         this.mongodbValueUtils = mongodbValueUtils;
@@ -60,6 +62,7 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
 
 
     public List<ChangeEvent> deserializeChangeRecord(SourceRecord record) throws Exception {
+        long st = System.currentTimeMillis();
         Struct value = (Struct) record.value();
         org.apache.kafka.connect.data.Schema valueSchema = record.valueSchema();
         OperationType op = operationTypeFor(record);
@@ -78,23 +81,33 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
             fullDocument = documentKey;
         }
 
+        List<ChangeEvent> changeEvents = Lists.newArrayList();
         Schema schema = MongodbTypeUtils.createSchema(fullDocument);
-        List<ChangeEvent> changeEvents = Lists.newArrayList(new CreateTableEvent(tableId, schema));
+        if(!schemaMap.containsKey(tableId)){
+            schemaMap.put(tableId,schema);
+            changeEvents.add(new CreateTableEvent(tableId,schema));
+        }
+
+        //通过header发送
+        Map<String, String> header = Maps.newHashMap();
+        header.put("schema",new ObjectMapper().writeValueAsString(schema));
+        header.put("source","mongodb");
 
         RecordData after;
         if (op != OperationType.UPDATE && op != OperationType.REPLACE) {
             if (op == OperationType.DELETE) {
                 after = extractAfterDataRecord(fullDocument, schema);
-                changeEvents.add(DataChangeEvent.deleteEvent(tableId, after, Collections.emptyMap()));
+                changeEvents.add(DataChangeEvent.deleteEvent(tableId, after, header));
             } else if (op == OperationType.INSERT) {
                 after = extractAfterDataRecord(fullDocument, schema);
-                changeEvents.add(DataChangeEvent.insertEvent(tableId, after, Collections.emptyMap()));
+                changeEvents.add(DataChangeEvent.insertEvent(tableId, after,header));
             }
         } else {
             after = extractAfterDataRecord(fullDocument, schema);
-            changeEvents.add(DataChangeEvent.updateEvent(tableId, null, after, Collections.emptyMap()));
+            changeEvents.add(DataChangeEvent.updateEvent(tableId, null, after,header));
         }
 
+        System.out.println(System.currentTimeMillis() - st);
         return changeEvents;
     }
 
@@ -205,22 +218,22 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
         String stringValue;
         if (dbzObj.isObjectId()) {
             stringValue = dbzObj.asObjectId().getValue().toString();
-        }else if(dbzObj.isDocument()){
-            stringValue =  dbzObj.asDocument().toJson();
+        } else if (dbzObj.isDocument()) {
+            stringValue = dbzObj.asDocument().toJson();
         } else if (dbzObj.isArray()) {
             //flink cdc pipline 现在不支持array对象处理，只能转换成字符串
             List<Object> arrays = Lists.newArrayList();
             for (BsonValue bsonValue : dbzObj.asArray()) {
                 Object value;
-                if(bsonValue instanceof BsonDocument){
-                    value= mongodbValueUtils.extractColumns(bsonValue.asDocument());
-                }else{
-                     value = mongodbValueUtils.toValue(bsonValue);
+                if (bsonValue instanceof BsonDocument) {
+                    value = mongodbValueUtils.extractColumns(bsonValue.asDocument());
+                } else {
+                    value = mongodbValueUtils.toValue(bsonValue);
                 }
                 arrays.add(value);
             }
-            stringValue  = new ObjectMapper().writeValueAsString(arrays);
-            } else {
+            stringValue = new ObjectMapper().writeValueAsString(arrays);
+        } else {
             stringValue = dbzObj.asString().getValue();
         }
         return BinaryStringData.fromString(stringValue);

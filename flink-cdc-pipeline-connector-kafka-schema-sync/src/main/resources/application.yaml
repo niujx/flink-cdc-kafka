@@ -17,7 +17,7 @@ spring:
       bindings:
         sinkProcess-in-0:
           destination: catalog-meta-data
-          group: 20240205111
+          group: 20240205111111
           consumer:
             concurrency: 1
       poller:
@@ -32,7 +32,7 @@ spring:
                 max.poll.interval.ms: 300000
 
         binder:
-          brokers: 172.16.5.217:9092,172.16.5.218:9092,172.16.5.219:9092
+          brokers: 10.195.40.142:9092,10.195.40.117:9092,10.195.40.119:9092,10.195.40.68:9092,10.195.40.80:9092
           required-acks: 1
           autoCreateTopics: false
 catalog:
@@ -53,7 +53,7 @@ spring:
         definition: sinkProcess
       bindings:
         sinkProcess-in-0:
-          destination: catalog_meta_data
+          destination: catalog-meta-data
           group: sensors-group-20220215
           consumer:
             concurrency: 7
@@ -65,7 +65,7 @@ spring:
             consumer:
               startOffset: latest
         binder:
-          brokers: 10.152.9.19:9092,10.152.9.20:9092,10.152.9.21:9092,10.152.9.22:9092,10.152.9.23:9092
+          brokers: 10.195.40.142:9092,10.195.40.117:9092,10.195.40.119:9092,10.195.40.68:9092,10.195.40.80:9092
           required-acks: 1
           autoCreateTopics: false
   catalog:
