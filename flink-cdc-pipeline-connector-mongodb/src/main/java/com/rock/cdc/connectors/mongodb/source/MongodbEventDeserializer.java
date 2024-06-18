@@ -89,22 +89,20 @@ public class MongodbEventDeserializer implements EventDeserializer<SourceRecord>
         }
 
         //通过header发送
-        Map<String, String> header = Maps.newHashMap();
-        header.put("schema",new ObjectMapper().writeValueAsString(schema));
-        header.put("source","mongodb");
+
 
         RecordData after;
         if (op != OperationType.UPDATE && op != OperationType.REPLACE) {
             if (op == OperationType.DELETE) {
                 after = extractAfterDataRecord(fullDocument, schema);
-                changeEvents.add(DataChangeEvent.deleteEvent(tableId, after, header));
+                changeEvents.add(DataChangeEvent.deleteEvent(tableId, after));
             } else if (op == OperationType.INSERT) {
                 after = extractAfterDataRecord(fullDocument, schema);
-                changeEvents.add(DataChangeEvent.insertEvent(tableId, after,header));
+                changeEvents.add(DataChangeEvent.insertEvent(tableId, after));
             }
         } else {
             after = extractAfterDataRecord(fullDocument, schema);
-            changeEvents.add(DataChangeEvent.updateEvent(tableId, null, after,header));
+            changeEvents.add(DataChangeEvent.updateEvent(tableId, null, after));
         }
 
         System.out.println(System.currentTimeMillis() - st);

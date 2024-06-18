@@ -76,14 +76,7 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
     @SneakyThrows
     private ProducerRecord<byte[], byte[]> applyChangeDataEvent(DataChangeEvent event) throws JsonProcessingException {
         TableId tableId = event.tableId();
-        TableInfo tableInfo;
-        Map<String, String> meta = event.meta();
-        if(meta!=null && StringUtils.equals(meta.get("source"),"mongodb")){
-            Schema schema = new ObjectMapper().readValue(meta.get("schema"),Schema.class);
-            tableInfo = tableInfo(schema);
-        }else {
-            tableInfo = tableInfoMap.get(tableId);
-        }
+        TableInfo tableInfo = tableInfoMap.get(tableId);
         Preconditions.checkNotNull(tableInfo, event.tableId() + " is not existed");
         Map<String, Object> before = null;
         Map<String, Object> after = null;
@@ -196,8 +189,8 @@ public class KafkaEventSerializer implements KafkaRecordSerializationSchema<Even
             Object fieldOrNull = tableInfo.fieldGetters[i].getFieldOrNull(recordData);
             if (fieldOrNull instanceof RecordData) {
                 Column column = tableInfo.schema.getColumns().get(i);
-                TableInfo  childTableInfo = tableInfo.childes.get(column.getName());
-                fieldOrNull =  serializerRecord((RecordData) fieldOrNull,childTableInfo);
+                TableInfo childTableInfo = tableInfo.childes.get(column.getName());
+                fieldOrNull = serializerRecord((RecordData) fieldOrNull, childTableInfo);
             }
             record.put(columns.get(i).getName(), fieldOrNull);
         }

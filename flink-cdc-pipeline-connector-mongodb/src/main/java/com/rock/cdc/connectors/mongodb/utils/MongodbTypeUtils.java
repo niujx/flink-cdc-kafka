@@ -28,7 +28,9 @@ public class MongodbTypeUtils {
             try {
                 builder.physicalColumn(column.getKey(), createDataType(column.getValue()));
             }catch (Exception e){
-              //  log.warn("createDataType  error Unsupported type: {}" , column.getValue().getBsonType());
+                if(log.isDebugEnabled()) {
+                    log.debug("createDataType error Unsupported type: {}", column.getValue().getBsonType());
+                }
             }
         }
         builder.comment("mongodb");

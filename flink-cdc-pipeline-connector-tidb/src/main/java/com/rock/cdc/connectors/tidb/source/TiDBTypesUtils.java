@@ -23,6 +23,7 @@ public class TiDBTypesUtils {
             case TypeShort:
                 return DataTypes.SMALLINT();
             case TypeLong:
+                return DataTypes.INT();
             case TypeLonglong:
                 return DataTypes.BIGINT();
             case TypeFloat:
